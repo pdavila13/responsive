@@ -24,6 +24,9 @@
         <div class="low-temp">{{forecast.lowTemp}}</div>
       </div>
     </div>
+    <md-snackbar md-position="bottom center" ref="connectionError" md-duration="4000">
+      <span>Connection error. Ensure the database is open.</span>
+    </md-snackbar>
   </div>
 </template>
 
@@ -57,7 +60,10 @@
       }
     },
     created: function () {
-      this.fetchWeather
+      this.fetchWeather()
+    },
+    showConnectionError: function () {
+      this.$refs.connectionError.open()
     }
   }
 </script>
@@ -66,7 +72,8 @@
 <style scoped>
   .weather {
     width: 100%;
-    padding: 20px;
+    display: inline-block;
+    padding: 10px 10px 0px 10px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
   }
 
@@ -78,7 +85,7 @@
 
   .location {
     font-size: 3em;
-    color: black;
+    color: #444;
   }
 
   .date {
@@ -168,24 +175,36 @@
     background-image: url('../assets/sunny.png');
   }
 
+  .visual .temp, .visual .scale, .visual .icon{
+    display: inline-block;
+  }
+  .visual .temp{
+    font-size: 1.6em;
+  }
+  .visual .scale, .visual .temp {
+    vertical-align: top;
+  }
+
   @media (max-width: 650px) {
-  .location {
-  font-size: 5em;
-  }
+    .location {
+      font-size: 5em;
+    }
 
-  .forecast-day {
-  display: block;
-  border-top: 1px solid black;
-  width: 100%;
-  }
+    .forecast-day {
+      display: block;
+      border-top: 1px solid black;
+      width: 100%;
+    }
 
-  .forecast-day .date {
-  width: 50%;
-  text-align: left;
-  }
+    .forecast-day .date {
+      font-size: 0.5em;
+      text-align: center;
+      font-weight: bold;
+      color: black;
+    }
 
-  .date, .icon, .high-temp, .low-temp {
-  display: inline-block;
+    .date, .icon, .high-temp, .low-temp {
+      display: inline-block;
+    }
   }
-}
 </style>
