@@ -7,7 +7,7 @@
       <div class="visual">
         <div class="icon cloudy" alt="cloudy"></div>
         <div class="temp">{{temp}}</div>
-        <div class="scale">º</div>
+        <div class="scale">ºC</div>
       </div>
       <div class="text">
         <div class="precipitation">Precipitation: {{precipitation}}</div>
@@ -20,8 +20,11 @@
       <div class="forecast-day" v-for="forecast in forecast">
         <div class="date">{{forecast.date}}</div>
         <div v-bind:class="'icon ' + forecast.icon"></div>
-        <div class="high-temp">{{forecast.highTemp}}</div>
-        <div class="low-temp">{{forecast.lowTemp}}</div>
+        <div class="forecast-temperature">
+          <div class="high-temp">{{forecast.highTemp}}°</div>
+          <div class="low-temp">{{forecast.lowTemp}}°</div>
+        </div>
+        <div class="pcount">Pollen {{pollen}}</div>
       </div>
     </div>
     <md-snackbar md-position="bottom center" ref="connectionError" md-duration="4000">
@@ -90,6 +93,8 @@
 
   .date {
     font-size: 0.8em;
+    font-weight: bold;
+    color: #444;
   }
 
   .description {
@@ -122,15 +127,17 @@
   }
 
   .forecast-day {
+    font-size: 0.8em;
     display: inline-block;
     width: 14.285%;
+    text-align: center;
   }
 
-  .forecast-day div {
-    text-align: center;
-    vertical-align: middle;
-    padding: 10px;
-  }
+  /*.forecast-day div {*/
+    /*text-align: center;*/
+    /*vertical-align: middle;*/
+    /*padding: 10px;*/
+  /*}*/
 
   .forecast-day date {
     color: black;
@@ -142,6 +149,19 @@
   .forecast-day .icon {
     width: 64px;
     height: 64px;
+  }
+
+  .forecast-day .high-temp, .forecast-day .low-temp {
+    display: inline-block;
+    font-size: 1.25em;
+  }
+
+  .forecast-day .low-temp {
+    color: rgba(0,0,0,0.4);
+  }
+
+  .forecast-day .forecast-temperature {
+    text-align: center;
   }
 
   .icon {
@@ -178,11 +198,27 @@
   .visual .temp, .visual .scale, .visual .icon{
     display: inline-block;
   }
-  .visual .temp{
-    font-size: 1.6em;
+  .temp{
+    font-size: 2.5em;
   }
   .visual .scale, .visual .temp {
     vertical-align: top;
+  }
+
+  .precipitation, .humidity, .wind, .pollen {
+    font-size: 0.9em;
+    color: #888;
+  }
+
+  .current {
+    overflow: auto;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .pcount {
+    font-size: 0.9em;
+    color: #888;
   }
 
   @media (max-width: 650px) {
